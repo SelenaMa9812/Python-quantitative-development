@@ -137,10 +137,58 @@ if __name__ == '__main__':
 
     print(session.orderbook())
 ```
+### ZMQ
+#### Pyzmq的几种模式
+1. 请求应答模式（Request-Reply）（rep 和 req）
+
+消息双向的，有来有往，req端请求的消息，rep端必须答复给req端
+
+2. 订阅发布模式 （pub 和 sub）
+
+消息单向的，有去无回的。可按照发布端可发布制定主题的消息，订阅端可订阅喜欢的主题，订阅端只会收到自己已经订阅的主题。发布端发布一条消息，可被多个订阅端同事收到。
+
+3. push pull模式
+
+消息单向的，也是有去无回的。push的任何一个消息，始终只会有一个pull端收到消息.
+
+后续的代理模式和路由模式等都是在三种基本模式上面的扩展或变异。
+#### sever.py
+```Python
+import zmq import sys
+context = zmq.Context()
+socket = context.socket(zmq.REP)
+socket.bind("tcp://*:5555")
+while True:
+     try:
+     print("wait for client ...")
+     message = socket.recv()
+     print("message from client:", message.decode('utf-8'))
+     socket.send(message)
+     except Exception as e:
+     print('异常:',e)
+     sys.exit()
+ ```
+ #### client.py
+ ```Python
+import zmq import sys
+context = zmq.Context()
+print("Connecting to server...")
+socket = context.socket(zmq.REQ)
+socket.connect("tcp://localhost:5555")
+while True:
+     input1 = input("请输入内容：").strip()
+     if input1 == 'b':
+     sys.exit()
+     socket.send(input1.encode('utf-8'))
+     message = socket.recv()
+     print("Received reply: ", message.decode('utf-8'))
+ ```
 ### 参考资料
 1. https://blog.csdn.net/weixin_34293911/article/details/93467995?utm_medium=distribute.pc_relevant.none-task-blog-2%7Edefault%7EsearchFromBaidu%7Edefault-1.pc_relevant_baidujshouduan&depth_1-utm_source=distribute.pc_relevant.none-task-blog-2%7Edefault%7EsearchFromBaidu%7Edefault-1.pc_relevant_baidujshouduan
 
 2. https://github.com/coinrising/okex-api-v5/blob/4e1d2d2e55c68f200d334ce6a966b63ce5bacdcc/websocket_example.py#L176 
+
+3. https://github.com/zeromq/pyzmq
 
 
 
