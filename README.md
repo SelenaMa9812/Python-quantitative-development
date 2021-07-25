@@ -9,6 +9,9 @@ WebSocket是双向的，在客户端-服务器通信的场景中使用的全双�
 
 <img src="https://github.com/SelenaMa9812/Python-quantitative-development/blob/main/pictures/websocket.jpg" width="500" height="250" />
 
+#### 不能使用WebSocket的场景
+如果我们需要通过网络传输的任何实时更新或连续数据流，则可以使用WebSocket。如果我们要获取旧数据，或者只想获取一次数据供应用程序使用，则应该使用HTTP协议，不需要很频繁或仅获取一次的数据可以通过简单的HTTP请求查询，因此在这种情况下最好不要使用WebSocket。
+
 ```Python
 ws  =  WebSocket(
      endpoint = 'wss://stream.bybit.com/realtime' , 
