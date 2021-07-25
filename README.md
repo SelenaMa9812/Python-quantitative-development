@@ -1,13 +1,12 @@
 # Python-quantitative-development
 
 ## 研究思路
-### 创建一个HTTP并通过WebSocket连接：
+### 通过WebSocket连接bybit：
+#### WebSocket协议
+WebSocket是双向的，在客户端-服务器通信的场景中使用的全双工协议，与HTTP不同，它以ws:// 或wss:// 开头。它是一个有状态协议，这意味着客户端和服务器之间的连接将保持活动状态，直到被任何一方（客户端或服务器）终止。在通过客户端和服务器中的任何一方关闭连接之后，连接将从两端终止。
+
+让我们以客户端-服务器通信为例，每当我们启动客户端和服务器之间的连接时，客户端-服务器进行握手随后创建一个新的连接，该连接将保持活动状态，直到被他们中的任何一方终止。建立连接并保持活动状态后，客户端和服务器将使用相同的连接通道进行通信，直到连接终止。
 ```Python
-session  =  HTTP(
-     endpoint = 'https://api.bybit.com' , 
-     api_key = '...' ,
-     api_secret = '...'
-)
 ws  =  WebSocket(
      endpoint = 'wss://stream.bybit.com/realtime' , 
      subscriptions = [ 'order' , 'position' ], 
