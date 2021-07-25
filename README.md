@@ -8,6 +8,7 @@ WebSocket是双向的，在客户端-服务器通信的场景中使用的全双�
 让我们以客户端-服务器通信为例，每当我们启动客户端和服务器之间的连接时，客户端-服务器进行握手随后创建一个新的连接，该连接将保持活动状态，直到被他们中的任何一方终止。建立连接并保持活动状态后，客户端和服务器将使用相同的连接通道进行通信，直到连接终止。
 
 <img src="https://github.com/SelenaMa9812/Python-quantitative-development/blob/main/pictures/websocket.jpg" width="500" height="250" />
+
 ```Python
 ws  =  WebSocket(
      endpoint = 'wss://stream.bybit.com/realtime' , 
