@@ -1,4 +1,10 @@
 # Python-quantitative-development
+## 目标：Asyncio Websocket Receiver
+Bybit 交易所的 API文档：https://bybit-exchange.github.io/docs/zh-cn/inverse/#t-websocket
+
+使用 Python - Asyncio 异步库，写出
+1. 含有 orderbook channel 和 trade channel 的 Websocket  Receiver 从交易所获得 raw data，orderbook需要是组装好的，并将数据使用zmq.publish()（Zero MQ）广播出去。
+2. Python - Asyncio 异步程序，zmq.receive() 接收并打印出数据
 
 ## 研究思路
 ### 通过WebSocket连接bybit：
