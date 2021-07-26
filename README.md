@@ -25,6 +25,7 @@ ProjectName
 ### 终端运行方法
 <img src="https://github.com/SelenaMa9812/Python-quantitative-development/blob/main/pictures/%E7%BB%88%E7%AB%AF%E8%BF%90%E8%A1%8C.png" width="500" height="100" />
 
+按`Ctrl + C`停止运行
 ## 研究思路
 ### 通过WebSocket连接bybit：
 #### WebSocket协议
