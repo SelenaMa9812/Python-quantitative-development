@@ -5,6 +5,23 @@ Bybit 交易所的 API文档：https://bybit-exchange.github.io/docs/zh-cn/inver
 使用 Python - Asyncio 异步库，写出
 1. 含有 orderbook channel 和 trade channel 的 Websocket  Receiver 从交易所获得 raw data，orderbook需要是组装好的，并将数据使用zmq.publish()（Zero MQ）广播出去。
 2. Python - Asyncio 异步程序，zmq.receive() 接收并打印出数据
+## 项目标准结构
+```
+ProjectName
+    |----- docs
+    |       |----- README.md
+    |----- scripts #放置运行脚本（启动、停止、备份、清洗数据等脚本）
+    |       |----- run.sh
+    |----- config.json #启动脚本
+    |----- src     #源码代码
+    |       |----- main.py   #入口文件
+    |       |----- strategy
+    |               |----- strategy1.py
+    |               |----- strategy2.py
+    |               |----- ...
+    |----- .gitignore
+    |----- README.md
+```
 
 ## 研究思路
 ### 通过WebSocket连接bybit：
@@ -253,11 +270,13 @@ while True:
      print("Received reply: ", message.decode('utf-8'))
  ```
 ### 参考资料
-1. https://blog.csdn.net/weixin_34293911/article/details/93467995?utm_medium=distribute.pc_relevant.none-task-blog-2%7Edefault%7EsearchFromBaidu%7Edefault-1.pc_relevant_baidujshouduan&depth_1-utm_source=distribute.pc_relevant.none-task-blog-2%7Edefault%7EsearchFromBaidu%7Edefault-1.pc_relevant_baidujshouduan
+1. asyncio异步编程，你搞懂了吗？ - 知乎  https://zhuanlan.zhihu.com/p/137057192
 
-2. https://github.com/coinrising/okex-api-v5/blob/4e1d2d2e55c68f200d334ce6a966b63ce5bacdcc/websocket_example.py#L176 
+2. https://blog.csdn.net/weixin_34293911/article/details/93467995?utm_medium=distribute.pc_relevant.none-task-blog-2%7Edefault%7EsearchFromBaidu%7Edefault-1.pc_relevant_baidujshouduan&depth_1-utm_source=distribute.pc_relevant.none-task-blog-2%7Edefault%7EsearchFromBaidu%7Edefault-1.pc_relevant_baidujshouduan
 
-3. https://github.com/zeromq/pyzmq
+3. https://github.com/coinrising/okex-api-v5/blob/4e1d2d2e55c68f200d334ce6a966b63ce5bacdcc/websocket_example.py#L176 
+
+4. https://github.com/zeromq/pyzmq
 
 ### 一点感悟
 6个小时只能蜻蜓点水的浏览所有资料，对各个部分没有能够深入地理解，再一次认识到自己不是天才的事实，像电影里的特工那样随意更换身份的天才，可望不可即。
