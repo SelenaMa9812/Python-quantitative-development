@@ -60,6 +60,64 @@ print(
     ws_auth.fetch('position')
 )
 ```
+### 异步并发处理
+#### asyncio
+并发地运行 Python 协程，并对其执行过程实现完全控制；执行网络 IO 和 IPC；控制子进程；通过队列实现分布式任务；同步并发代码。
+```Python
+# 获取和创建事件循环
+loop = asyncio.get_event_loop() # 创建一个事件循环
+loop.run_until_complete(result) # 将协程当做任务提交到事件循环的任务列表中，协程执行完成之后终止。
+```
+```Python
+import asyncio
+
+async def func():
+    print(1)
+    await asyncio.sleep(2)
+    print(2)
+    return "返回值"
+
+async def main():
+    print("main开始")
+    # 创建协程，将协程封装到Task对象中并添加到事件循环的任务列表中，等待事件循环去执行（默认是就绪状态）。
+    # 在调用
+    task_list = [
+        asyncio.create_task(func(), name="n1"),
+        asyncio.create_task(func(), name="n2")
+    ]
+    print("main结束")
+    # 当执行某协程遇到IO操作时，会自动化切换执行其他任务。
+    # 此处的await是等待所有协程执行完毕，并将所有协程的返回值保存到done
+    # 如果设置了timeout值，则意味着此处最多等待的秒，完成的协程返回值写入到done中，未完成则写到pending中。
+    done, pending = await asyncio.wait(task_list, timeout=None)
+    print(done, pending)
+
+asyncio.run(main())
+```
+特别地，在爬虫过程中，可以通过休眠若干秒，来应对网页中的反爬虫设置。
+```Python
+async def func():
+    print(1)
+    await asyncio.sleep(2)
+    print(2)
+    return "返回值"
+
+async def main():
+    print("main开始")
+    # 创建协程，将协程封装到一个Task对象中并立即添加到事件循环的任务列表中，等待事件循环去执行（默认是就绪状态）。
+    task1 = asyncio.create_task(func())
+    # 创建协程，将协程封装到一个Task对象中并立即添加到事件循环的任务列表中，等待事件循环去执行（默认是就绪状态）。
+    task2 = asyncio.create_task(func())
+    print("main结束")
+
+    # 当执行某协程遇到IO操作时，会自动化切换执行其他任务。
+    # 此处的await是等待相对应的协程全都执行完毕并获取结果
+    ret1 = await task1
+    ret2 = await task2
+    print(ret1, ret2)
+
+asyncio.run(main())
+```
 ### 通过Bybit APIs发送或检索信息
 ```Python
 # Get orderbook.
