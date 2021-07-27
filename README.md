@@ -43,14 +43,66 @@ WebSocket是双向的，在客户端-服务器通信的场景中使用的全双�
 #### 不能使用WebSocket的场景
 如果我们需要通过网络传输的任何实时更新或连续数据流，则可以使用WebSocket。如果我们要获取旧数据，或者只想获取一次数据供应用程序使用，则应该使用HTTP协议，不需要很频繁或仅获取一次的数据可以通过简单的HTTP请求查询，因此在这种情况下最好不要使用WebSocket。
 
+#### src/pybit/webSocket.py
 ```Python
-ws  =  WebSocket(
-     endpoint = 'wss://stream.bybit.com/realtime' , 
-     subscriptions = [ 'order' , 'position' ], 
-     api_key = '...' ,
-     api_secret = '...' 
-)
+class WebSocket:
+
+    def __init__(self):
+
+        self.data = {}
+
+        websocket.enableTrace(True)
+        self.ws = websocket.WebSocketApp(
+            "wss://stream.bytick.com/realtime",
+            on_open=self._on_open(self.ws),
+            on_message=self._on_message,
+            on_error=self._on_error,
+            on_close=self._on_close(self.ws),
+        )
+        # Setup the thread running WebSocketApp.
+        self.wst = threading.Thread(target=lambda: self.ws.run_forever(
+            sslopt={"cert_reqs": ssl.CERT_NONE},
+        ))
+
+        # Configure as daemon; start.
+        self.wst.daemon = True
+        self.wst.start()
+
+    def orderbook(self):
+        return self.data.get('orderBook_200.100ms.BTCUSD')
+
+    @staticmethod
+    def _on_message(self, message):
+        m = json.loads(message)
+        if 'topic' in m and m.get('topic') == 'orderBook_200.100ms.BTCUSD' and m.get('type') == 'snapshot':
+            print('Hi!')
+            self.data[m.get('topic')] = m.get('data')
+
+    @staticmethod
+    def _on_error(self, error):
+        print(error)
+
+    @staticmethod
+    def _on_close(ws):
+        print("### closed ###")
+
+    @staticmethod
+    def _on_open(ws):
+        print('Submitting subscriptions...')
+        ws.send(json.dumps({
+            'op': 'subscribe',
+            'args': ['orderBook_200.100ms.BTCUSD']
+        }))
+
+
+if __name__ == '__main__':
+    session = WebSocket()
+
+    time.sleep(5)
+
+    print(session.orderbook())
 ```
+
 ```Python
 # Import the WebSocket object from pybit.
 from pybit import WebSocket
@@ -91,6 +143,7 @@ print(
     ws_auth.fetch('position')
 )
 ```
+
 ### 异步并发处理
 #### asyncio
 并发地运行 Python 协程，并对其执行过程实现完全控制；执行网络 IO 和 IPC；控制子进程；通过队列实现分布式任务；同步并发代码。
@@ -171,66 +224,7 @@ session.place_active_order_bulk(orders)
 ws.fetch('order')
 ws.fetch('position')
 ```
-### Market Data Endpoints
-orderbook/trade channel: orderbook() #'orderBookL2_25', 'orderBookL2_200', 'trade'
-```Python
-class WebSocket:
 
-    def __init__(self):
-
-        self.data = {}
-
-        websocket.enableTrace(True)
-        self.ws = websocket.WebSocketApp(
-            "wss://stream.bytick.com/realtime",
-            on_open=self._on_open(self.ws),
-            on_message=self._on_message,
-            on_error=self._on_error,
-            on_close=self._on_close(self.ws),
-        )
-        # Setup the thread running WebSocketApp.
-        self.wst = threading.Thread(target=lambda: self.ws.run_forever(
-            sslopt={"cert_reqs": ssl.CERT_NONE},
-        ))
-
-        # Configure as daemon; start.
-        self.wst.daemon = True
-        self.wst.start()
-
-    def orderbook(self):
-        return self.data.get('orderBook_200.100ms.BTCUSD')
-
-    @staticmethod
-    def _on_message(self, message):
-        m = json.loads(message)
-        if 'topic' in m and m.get('topic') == 'orderBook_200.100ms.BTCUSD' and m.get('type') == 'snapshot':
-            print('Hi!')
-            self.data[m.get('topic')] = m.get('data')
-
-    @staticmethod
-    def _on_error(self, error):
-        print(error)
-
-    @staticmethod
-    def _on_close(ws):
-        print("### closed ###")
-
-    @staticmethod
-    def _on_open(ws):
-        print('Submitting subscriptions...')
-        ws.send(json.dumps({
-            'op': 'subscribe',
-            'args': ['orderBook_200.100ms.BTCUSD']
-        }))
-
-
-if __name__ == '__main__':
-    session = WebSocket()
-
-    time.sleep(5)
-
-    print(session.orderbook())
-```
 ### ZMQ
 #### Pyzmq的几种模式
 1. 请求应答模式（Request-Reply）（rep 和 req）
