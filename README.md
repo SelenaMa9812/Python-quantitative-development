@@ -102,7 +102,7 @@ if __name__ == '__main__':
 
     print(session.orderbook())
 ```
-
+#### 非异步处理的提取数据文件（在此基础上改为异步）
 ```Python
 # Import the WebSocket object from pybit.
 from pybit import WebSocket
