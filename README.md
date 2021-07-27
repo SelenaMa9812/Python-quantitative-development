@@ -150,7 +150,8 @@ print(
 ```Python
 # 获取和创建事件循环
 loop = asyncio.get_event_loop() # 创建一个事件循环
-loop.run_until_complete(result) # 将协程当做任务提交到事件循环的任务列表中，协程执行完成之后终止。
+loop.run_until_complete() # 运行直到future被完成：将协程当做任务提交到事件循环的任务列表中，协程执行完成之后终止。
+loop.run_forever() #运行事件循环直到 stop() 被调用
 ```
 ```Python
 import asyncio
@@ -318,7 +319,7 @@ while True:
 6. endwenscheng/demo  https://github.com/endwenscheng/demo
 
 ### 特别致谢——https://github.com/xiandong79
-感谢作者在我没做出笔试题的情况下，提供ubantu服务器给我摸索代码的机会；通过一段有温度的聊天，帮助我捋清量化岗位的职业方向和能力需求；从职业发展的角度，给我提升编程能力的建议。
+感谢作者在我没做出笔试题的情况下，提供ubuntu服务器给我摸索代码的机会；通过一段有温度的聊天，帮助我捋清量化岗位的职业方向和能力需求；从职业发展的角度，给我提升编程能力的建议。
 
 ### 一点感悟
 接到题目后，6个小时只能蜻蜓点水的浏览所有资料，对各个部分没有能够深入地理解，再一次认识到自己不是天才的事实，像电影里的特工那样随意更换身份的天才，可望不可即。
