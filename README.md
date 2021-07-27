@@ -202,27 +202,35 @@ async def main():
 
 asyncio.run(main())
 ```
-### 通过Bybit APIs发送或检索信息
+### 异步接收数据
 ```Python
-# Get orderbook.
-session.orderbook(symbol='BTCUSD')
+# Import the WebSocket object from pybit.
+from pybit import WebSocket
+import asyncio
 
-# Create five long orders.
-orders = [{
-    'symbol': 'BTCUSD', 
-    'order_type': 'Limit', 
-    'side': 'Buy', 
-    'qty': 100, 
-    'price': i,
-    'time_in_force': 'GoodTillCancel'
-} for i in [5000, 5500, 6000, 6500, 7000]]
-
-# Submit the orders in bulk.
-session.place_active_order_bulk(orders)
-
-# Check on your order and position through WebSocket.
-ws.fetch('order')
-ws.fetch('position')
+class Receiver():
+        def __init__(self): 
+            # Define your endpoint URLs and subscriptions.
+            endpoint_public = 'wss://stream.bybit.com/realtime_public'
+            endpoint_private = 'wss://stream.bybit.com/realtime_private'
+            subs = [
+                'orderBookL2_25.BTCUSD',
+                'instrument_info.100ms.BTCUSD',
+                'instrument_info.100ms.ETHUSD'
+            ]
+            self._rest_api = WebSocket(endpoint_public, subscriptions=subs) # Connect without authentication!
+            '''
+            self._rest_api = WebSocket(
+                endpoint_private,
+                subscriptions=['position'],
+                api_key='...',
+                api_secret='...'
+            )                                   # Connect with authentication!
+            '''
+            asyncio.get_event_loop().create_task(self.get_orderbook)
+        async def get_orderbook(self):
+            eg = 'orderBookL2_25.BTCUSD'
+            success,error = await self._rest_api.fetch(eg)
 ```
 
 ### ZMQ
