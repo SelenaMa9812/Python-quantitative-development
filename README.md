@@ -203,6 +203,7 @@ async def main():
 asyncio.run(main())
 ```
 ### 异步接收数据
+receiver.py
 ```Python
 # Import the WebSocket object from pybit.
 from pybit import WebSocket
@@ -264,6 +265,13 @@ while True:
      print('异常:',e)
      sys.exit()
  ```
+ 将下面代码添加到server的main文件最前面：
+ ```Python
+import zmq import sys
+context = zmq.Context()
+socket = context.socket(zmq.REP)
+socket.bind("tcp://*:5555")
+ ```
  #### client.py
  ```Python
 import zmq import sys
@@ -279,6 +287,23 @@ while True:
      message = socket.recv()
      print("Received reply: ", message.decode('utf-8'))
  ```
+ 将下面代码直接在client中执行：
+ ```Python
+import zmq
+import json
+context = zmq.Context()
+socket = context.socket(zmq.SUB)
+socket.connect("tcp://localhost:5555")
+socket.setsockopt_string(zmq.SUBSCRIBE, '')  # 消息过滤
+while True:
+    response = socket.recv_string()
+    response = json.loads(response)
+    if isinstance(response, list):
+        for r in response:
+            print(r)
+    else:
+        print(response)
+ ```
 ### 参考资料
 1. asyncio异步编程，你搞懂了吗？ - 知乎  https://zhuanlan.zhihu.com/p/137057192
 
@@ -288,7 +313,15 @@ while True:
 
 4. https://github.com/zeromq/pyzmq
 
+5. 【AIOQuant量化交易框架】第3期 利用REST API拉取行情数据  https://www.bilibili.com/video/BV15J411B7bG
+ 
+6. endwenscheng/demo  https://github.com/endwenscheng/demo
+
+### 特别致谢 https://github.com/xiandong79
+感谢作者在我没做出笔试题的情况下，提供ubantu服务器给我摸索代码的机会；通过一段有温度的聊天，帮助我捋请量化岗位的职业方向和能力需求；从职业发展的角度，给我提升编程能力的建议。
+
 ### 一点感悟
-6个小时只能蜻蜓点水的浏览所有资料，对各个部分没有能够深入地理解，再一次认识到自己不是天才的事实，像电影里的特工那样随意更换身份的天才，可望不可即。
+接到题目后，6个小时只能蜻蜓点水的浏览所有资料，对各个部分没有能够深入地理解，再一次认识到自己不是天才的事实，像电影里的特工那样随意更换身份的天才，可望不可即。
+当一点点深入开发的各个部分，发现很多视频课程中的教学内容采用的是已封装好的框架，不知道开发岗位的工作过程中可不可以调用外部框架；对于协程、异步，接收端、发送端代码的使用，还是认识模糊，一旦调包使用的某个函数出现问题，我很难找出解决办法。
 
 
