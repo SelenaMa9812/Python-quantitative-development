@@ -321,7 +321,7 @@ while True:
 7. 【AIOQuant量化交易框架】paulran/aioquant: Asynchronous event I/O driven quantitative trading framework.  https://github.com/paulran/aioquant
 
 ### 特别致谢—— https://github.com/xiandong79
-感谢作者在我没做出笔试题的情况下，提供ubuntu服务器给我摸索代码的机会；通过一段有温度的聊天，帮助我捋清量化岗位的职业方向和能力需求；从职业发展的角度，给我提升编程能力的建议。
+感谢作者(我的面试官)在我没做出笔试题的情况下，提供ubuntu服务器给我摸索代码的机会；通过一段有温度的聊天，帮助我捋清量化岗位的职业方向和能力需求；从职业发展的角度，给我提升编程能力的建议。
 
 ### 一点感悟
 接到题目后，6个小时只能蜻蜓点水的浏览所有资料，对各个部分没有能够深入地理解，再一次认识到自己不是天才的事实，像电影里的特工那样随意更换身份的天才，可望不可即。
