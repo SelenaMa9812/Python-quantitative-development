@@ -151,7 +151,7 @@ print(
 # 获取和创建事件循环
 loop = asyncio.get_event_loop() # 创建一个事件循环
 loop.run_until_complete() # 运行直到future被完成：将协程当做任务提交到事件循环的任务列表中，协程执行完成之后终止。
-loop.run_forever() #运行事件循环直到 stop() 被调用
+loop.run_forever() #运行事件循环直到 stop() 被调用，在量化交易系统中使用，无限执行
 ```
 ```Python
 import asyncio
