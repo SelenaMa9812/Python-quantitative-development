@@ -43,7 +43,7 @@ WebSocket是双向的，在客户端-服务器通信的场景中使用的全双�
 #### 不能使用WebSocket的场景
 如果我们需要通过网络传输的任何实时更新或连续数据流，则可以使用WebSocket。如果我们要获取旧数据，或者只想获取一次数据供应用程序使用，则应该使用HTTP协议，不需要很频繁或仅获取一次的数据可以通过简单的HTTP请求查询，因此在这种情况下最好不要使用WebSocket。
 
-#### src/pybit/webSocket.py
+#### src/pybit/webSocket.py 定义获取数据的函数不需要考虑异步处理
 ```Python
 class WebSocket:
 
