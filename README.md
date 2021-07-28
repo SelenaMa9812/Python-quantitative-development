@@ -334,24 +334,33 @@ while True:
 <img src="https://github.com/SelenaMa9812/Python-quantitative-development/blob/main/pictures/2.png" width="500" height="300" />
 
 #### 可能是版本的问题。。。
-其他的加载包出现同类报错，会进行降版本处理。我还是不乱改公司的服务器加载包的版本了，避免造成不必要的麻烦。
+Google上面Takes 1 positional argument but 2 were given的报错处理:
+
+1) 对于自己定义的类，采取的解决办法是增加self；
+2) 对于加载包，采取的解决办法是降版本。
+
+另外，python标准库里面没有提到3.6与3.7以及之后版本的loop.run_forever()有显著不同。
+
+我还是不乱改公司的服务器加载包的版本了，避免造成不必要的麻烦。
 
 <img src="https://github.com/SelenaMa9812/Python-quantitative-development/blob/main/pictures/1.png" width="500" height="300" />
 
 ### 参考资料
 1. asyncio异步编程，你搞懂了吗？ - 知乎  https://zhuanlan.zhihu.com/p/137057192
 
-2. https://blog.csdn.net/weixin_34293911/article/details/93467995?utm_medium=distribute.pc_relevant.none-task-blog-2%7Edefault%7EsearchFromBaidu%7Edefault-1.pc_relevant_baidujshouduan&depth_1-utm_source=distribute.pc_relevant.none-task-blog-2%7Edefault%7EsearchFromBaidu%7Edefault-1.pc_relevant_baidujshouduan
+2. (8条消息) python协程系列（六）——asyncio的EventLoop以及Future详解_MIss-Y的博客-CSDN博客  https://blog.csdn.net/qq_27825451/article/details/86292513
 
-3. https://github.com/coinrising/okex-api-v5/blob/4e1d2d2e55c68f200d334ce6a966b63ce5bacdcc/websocket_example.py#L176 
+3. https://blog.csdn.net/weixin_34293911/article/details/93467995?utm_medium=distribute.pc_relevant.none-task-blog-2%7Edefault%7EsearchFromBaidu%7Edefault-1.pc_relevant_baidujshouduan&depth_1-utm_source=distribute.pc_relevant.none-task-blog-2%7Edefault%7EsearchFromBaidu%7Edefault-1.pc_relevant_baidujshouduan
 
-4. https://github.com/zeromq/pyzmq
+4. https://github.com/coinrising/okex-api-v5/blob/4e1d2d2e55c68f200d334ce6a966b63ce5bacdcc/websocket_example.py#L176 
 
-5. 【AIOQuant量化交易框架】第3期 利用REST API拉取行情数据  https://www.bilibili.com/video/BV15J411B7bG
+5. https://github.com/zeromq/pyzmq
+
+6. 【AIOQuant量化交易框架】第3期 利用REST API拉取行情数据  https://www.bilibili.com/video/BV15J411B7bG
  
-6. endwenscheng/demo  https://github.com/endwenscheng/demo
+7. endwenscheng/demo  https://github.com/endwenscheng/demo
 
-7. 【AIOQuant量化交易框架】paulran/aioquant: Asynchronous event I/O driven quantitative trading framework.  https://github.com/paulran/aioquant
+8. 【AIOQuant量化交易框架】paulran/aioquant: Asynchronous event I/O driven quantitative trading framework.  https://github.com/paulran/aioquant
 
 ### 特别致谢—— https://github.com/xiandong79
 感谢作者(我的面试官)在我没做出笔试题的情况下，提供ubuntu服务器给我摸索代码的机会；通过一段有温度的聊天，帮助我捋清量化岗位的职业方向和能力需求；从职业发展的角度，给我提升编程能力的建议。
