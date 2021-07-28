@@ -238,7 +238,6 @@ loop.run_forever() #运行事件循环直到 stop() 被调用，在量化交易�
 ```
 
 ```Python
-# -*-coding:utf-8-*- 
 import asyncio
 # from aioquant import quant
 
