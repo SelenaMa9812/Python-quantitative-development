@@ -331,10 +331,12 @@ while True:
         print(response)
  ```
 ### 运行结果
+<img src="https://github.com/SelenaMa9812/Python-quantitative-development/blob/main/pictures/2.png" width="500" height="300" />
 
+#### 可能是版本的问题。。。
+其他的加载包出现同类报错，会进行降版本处理。我还是不乱改公司的服务器加载包的版本了，避免造成不必要的麻烦。
 
-可能是版本的问题。。。其他的加载包出现同类报错，会进行降版本处理。我还是不乱改公司的服务器加载包的版本了，避免造成不必要的麻烦。
-
+<img src="https://github.com/SelenaMa9812/Python-quantitative-development/blob/main/pictures/1.png" width="500" height="300" />
 
 ### 参考资料
 1. asyncio异步编程，你搞懂了吗？ - 知乎  https://zhuanlan.zhihu.com/p/137057192
