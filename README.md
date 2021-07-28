@@ -43,7 +43,10 @@ WebSocket是双向的，在客户端-服务器通信的场景中使用的全双�
 #### 不能使用WebSocket的场景
 如果我们需要通过网络传输的任何实时更新或连续数据流，则可以使用WebSocket。如果我们要获取旧数据，或者只想获取一次数据供应用程序使用，则应该使用HTTP协议，不需要很频繁或仅获取一次的数据可以通过简单的HTTP请求查询，因此在这种情况下最好不要使用WebSocket。
 
-#### src/pybit/webSocket.py 定义获取数据的函数不需要考虑异步处理
+#### src/pybit/webSocket.py 定义获取数据的类，不需要考虑异步处理
+
+类的六大设计原则：单一职责原则（Single Responsibility Principle）；开闭原则（Open Closed Principle）；里氏替换原则（Liskov Substitution Principle）；迪米特法则（Law of Demeter），又叫“最少知道法则”；接口隔离原则（Interface Segregation Principle）；依赖倒置原则（Dependence Inversion Principle）。
+
 ```Python
 class WebSocket:
 
