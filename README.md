@@ -25,7 +25,8 @@ ProjectName
 ### 终端运行方法
 ```
 (base) ubuntu@ip-172-31-40-137:~/.vscode-server$ cd ~/.vscode-server/first_project
-(base) ubuntu@ip-172-31-40-137:~/.vscode-server/first_project$ python src/main.py
+(base) ubuntu@ip-172-31-40-137:~/.vscode-server/first_project$ python src/main.py   # server端
+(base) ubuntu@ip-172-31-40-137:~/.vscode-server/first_project$ python src/client.py # client端
 ```
 按`Ctrl + C`停止运行
 
