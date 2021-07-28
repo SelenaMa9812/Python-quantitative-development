@@ -147,12 +147,7 @@ print(
 ### 异步并发处理
 #### asyncio
 并发地运行 Python 协程，并对其执行过程实现完全控制；执行网络 IO 和 IPC；控制子进程；通过队列实现分布式任务；同步并发代码。
-```Python
-# 获取和创建事件循环
-loop = asyncio.get_event_loop() # 创建一个事件循环
-loop.run_until_complete() # 运行直到future被完成：将协程当做任务提交到事件循环的任务列表中，协程执行完成之后终止。
-loop.run_forever() #运行事件循环直到 stop() 被调用，在量化交易系统中使用，无限执行
-```
+
 ```Python
 import asyncio
 
@@ -233,6 +228,33 @@ class Receiver():
         async def get_orderbook(self):
             eg = 'orderBookL2_25.BTCUSD'
             success,error = await self._rest_api.fetch(eg)
+```
+### src/main.py
+```Python
+# 获取和创建事件循环
+loop = asyncio.get_event_loop() # 创建一个事件循环
+loop.run_until_complete() # 运行直到future被完成：将协程当做任务提交到事件循环的任务列表中，协程执行完成之后终止。
+loop.run_forever() #运行事件循环直到 stop() 被调用，在量化交易系统中使用，无限执行
+```
+
+```Python
+# -*-coding:utf-8-*- 
+import asyncio
+# from aioquant import quant
+
+def myreceiver(): #入口函数
+    from strategy.receiver import Receiver
+    Receiver()
+
+if __name__ == "__main__":
+    '''
+    config_file = "config.json"
+    quant.start(config_file,receiver)
+    '''
+    loop = asyncio.get_event_loop() #启动框架
+    loop.run_forever(myreceiver)
+    loop.close() 
+
 ```
 
 ### ZMQ
